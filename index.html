@@ -3,67 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портфолио | Pullman</title>
-    <!-- Подключаем наш файл со стилями -->
+    <title>Pullman | Cyber Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Шрифт для футуристичного стиля -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- Живой аниме-фон с затемнением -->
+    <div class="anime-bg-overlay"></div>
+    <div class="scanlines"></div>
+
+    <!-- Индикатор мыши (светящийся курсор) -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
     <div class="container">
-        <!-- Шапка -->
-        <header>
-            <div class="avatar">
-                <!-- Положи фото в папку img/avatar.jpg или оставь заглушку -->
-                <img src="img/avatar.jpg" alt="Avatar" onerror="this.src='https://via.placeholder.com/120'">
+        <!-- Шапка Профиля -->
+        <header class="profile-header">
+            <div class="avatar-wrapper">
+                <div class="avatar-glow"></div>
+                <!-- Твоя аватарка (можешь заменить URL на любую свою) -->
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&auto=format&fit=crop&q=80" alt="Avatar" class="avatar-img">
             </div>
-            <h1>Pullman</h1>
-            <p class="subtitle">Разработчик / Создатель пет-проектов</p>
-            <div class="socials">
-                <a href="https://github.com/pullmanss" target="_blank">GitHub</a>
-                <a href="https://t.me/твой-логин" target="_blank">Telegram</a>
-                <a href="mailto:email@example.com">Email</a>
+
+            <div class="status-badge">
+                <span class="status-dot"></span> ДОСТУПЕН ДЛЯ ПРОЕКТОВ • 2026
+            </div>
+
+            <h1 class="glitch-title">PULLMAN<span class="accent-dot">.</span></h1>
+            <p class="subtitle">Full-Stack Architect & Digital Craftsman</p>
+
+            <div class="social-links">
+                <a href="https://github.com/pullmanss" target="_blank" class="cyber-btn"><span>GITHUB</span></a>
+                <a href="https://t.me/pullmanss" target="_blank" class="cyber-btn"><span>TELEGRAM</span></a>
+                <a href="mailto:contact@pullman.dev" class="cyber-btn primary"><span>СВЯЗАТЬСЯ</span></a>
             </div>
         </header>
 
-        <!-- Навыки -->
-        <section class="skills-section">
-            <h2>Стек технологий</h2>
-            <div class="skills-list">
-                <span class="skill-tag">HTML5 / CSS3</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">Git & GitHub</span>
-                <span class="skill-tag">VS Code</span>
+        <!-- Навыки / Стек технологий -->
+        <section class="section">
+            <h2 class="section-title">// ТЕХНОЛОГИЧЕСКИЙ СТЕК</h2>
+            <div class="tech-grid">
+                <div class="tech-chip"><span class="chip-dot"></span>HTML5 / Modern CSS</div>
+                <div class="tech-chip"><span class="chip-dot"></span>JavaScript (ESNext)</div>
+                <div class="tech-chip"><span class="chip-dot"></span>TypeScript</div>
+                <div class="tech-chip"><span class="chip-dot"></span>Python Backend</div>
+                <div class="tech-chip"><span class="chip-dot"></span>Rust & C++ Systems</div>
+                <div class="tech-chip"><span class="chip-dot"></span>Go Microservices</div>
+                <div class="tech-chip"><span class="chip-dot"></span>PostgreSQL / SQL</div>
+                <div class="tech-chip"><span class="chip-dot"></span>Git Architecture</div>
             </div>
         </section>
 
-        <!-- Проекты -->
-        <section>
-            <h2>Мои проекты</h2>
+        <!-- Секция проектов с 3D-наклоном -->
+        <section class="section">
+            <h2 class="section-title">// ИЗБРАННЫЕ ПРОЕКТЫ</h2>
             <div class="projects-grid">
-                
-                <div class="project-card">
-                    <div>
-                        <h3>Сайт-портфолио</h3>
-                        <p>Моя визитка, размещенная на GitHub Pages. Адаптивная верстка, темная тема.</p>
+
+                <div class="card 3d-card">
+                    <div class="card-border"></div>
+                    <div class="card-content">
+                        <div class="card-tag">SYSTEM / AI</div>
+                        <h3>CyberCore Engine</h3>
+                        <p>Высокоскоростное ядро обработки данных на Rust & C++ с визуализацией в веб.</p>
+                        <a href="#" class="card-link">Исследовать код &rarr;</a>
                     </div>
-                    <a href="https://github.com/pullmanss/pullmanss.github.io" class="project-link" target="_blank">Репозиторий &rarr;</a>
                 </div>
 
-                <div class="project-card">
-                    <div>
-                        <h3>Будущий проект</h3>
-                        <p>Здесь появится твой следующий проект: веб-сервис, бот или игра.</p>
+                <div class="card 3d-card">
+                    <div class="card-border"></div>
+                    <div class="card-content">
+                        <div class="card-tag">WEB3 / DESIGN</div>
+                        <h3>Neon Portal</h3>
+                        <p>Интерактивная трехмерная вселенная на чистом Canvas с шейдерными анимациями.</p>
+                        <a href="#" class="card-link">Смотреть демо &rarr;</a>
                     </div>
-                    <a href="#" class="project-link">Скоро &rarr;</a>
+                </div>
+
+                <div class="card 3d-card">
+                    <div class="card-border"></div>
+                    <div class="card-content">
+                        <div class="card-tag">MICROSERVICES</div>
+                        <h3>Go Gateway API</h3>
+                        <p>Распределенный шлюз аутентификации с микросекундной задержкой.</p>
+                        <a href="#" class="card-link">Документация &rarr;</a>
+                    </div>
                 </div>
 
             </div>
         </section>
 
-        <footer>
-            <p>© 2024 Pullman. Работает на GitHub Pages.</p>
+        <!-- Футер -->
+        <footer class="footer">
+            <p>DESIGNED IN THE FUTURE © 2026 PULLMAN. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</p>
         </footer>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
