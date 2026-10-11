@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | [Твое Имя]</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Hero секция */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #334155;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 3px solid var(--accent);
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        .socials a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .socials a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Навыки */
+        .skills-section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: var(--card-bg);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #334155;
+            color: var(--text-muted);
+        }
+
+        /* Проекты */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .projects-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .project-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="avatar">
+                <!-- Можно вставить ссылку на фото: <img src="avatar.jpg" alt="avatar"> -->
+                👨‍💻
+            </div>
+            <h1>[Твое Имя / Никнейм]</h1>
+            <p class="subtitle">[Твоя роль, например: Frontend Разработчик / Студент / Создатель пет-проектов]</p>
+            <div class="socials">
+                <a href="https://github.com/[твой-ник]" target="_blank">GitHub</a>
+                <a href="https://t.me/[твой-тг]" target="_blank">Telegram</a>
+                <a href="mailto:[твой-email]@example.com">Email</a>
+            </div>
+        </header>
+
+        <!-- Стек технологий -->
+        <section class="skills-section">
+            <h2>Технологии и навыки</h2>
+            <div class="skills-list">
+                <span class="skill-tag">HTML5 / CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Git & GitHub</span>
+                <span class="skill-tag">React / Vue (если знаешь)</span>
+                <span class="skill-tag">Python (если знаешь)</span>
+                <span class="skill-tag">Figma</span>
+            </div>
+        </section>
+
+        <!-- Проекты -->
+        <section>
+            <h2>Проекты</h2>
+            <div class="projects-grid">
+                
+                <!-- Проект 1 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Название Проекта 1</h3>
+                        <p>Краткое описание того, что делает проект, какую проблему решает и какие технологии использовались.</p>
+                    </div>
+                    <a href="https://github.com/..." class="project-link" target="_blank">Смотреть код &rarr;</a>
+                </div>
+
+                <!-- Проект 2 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Название Проекта 2</h3>
+                        <p>Например: Телеграм-бот для отслеживания курсов валют на Python. Развернут в облаке.</p>
+                    </div>
+                    <a href="https://github.com/..." class="project-link" target="_blank">Смотреть демо &rarr;</a>
+                </div>
+
+                <!-- Проект 3 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Название Проекта 3</h3>
+                        <p>Браузерная игра или приложение списка задач на чистом JavaScript с сохранением в LocalStorage.</p>
+                    </div>
+                    <a href="https://github.com/..." class="project-link" target="_blank">Смотреть код &rarr;</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Подвал -->
+        <footer>
+            <p>© 2024 [Твое Имя]. Работает на GitHub Pages.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
