@@ -1,309 +1,194 @@
-:root {
-    --bg-black: #030305;
-    --card-surface: rgba(14, 15, 20, 0.7);
-    --neon-cyan: #00f3ff;
-    --neon-pink: #ff0055;
-    --neon-purple: #9d00ff;
-    --text-white: #ffffff;
-    --text-dim: #8a8d9b;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: default;
+    font-family: 'Share Tech Mono', monospace;
+    user-select: none;
 }
 
-body {
-    background-color: var(--bg-black);
-    color: var(--text-white);
-    font-family: 'Space Grotesk', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #030308;
+    color: #a6f9ff;
 }
 
-/* Атмосферный темный аниме-фон */
-.anime-bg-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+#canvas-container {
     width: 100vw;
     height: 100vh;
-    background: 
-        radial-gradient(circle at 50% 10%, rgba(157, 0, 255, 0.15), transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(0, 243, 255, 0.1), transparent 50%),
-        linear-gradient(rgba(3, 3, 5, 0.88), rgba(3, 3, 5, 0.98)),
-        url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1920&q=80') center/cover no-repeat;
-    z-index: -2;
-    filter: brightness(0.7) contrast(1.2);
-}
-
-/* Эффект кибер-сканлайнов монитора */
-.scanlines {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-    background-size: 100% 4px;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.6;
-}
-
-/* Светящийся курсор за мышью */
-.cursor-glow {
-    position: fixed;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(0, 243, 255, 0.12) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-    transition: width 0.3s, height 0.3s;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 80px 24px;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
 }
 
-/* Шапка */
-.profile-header {
-    text-align: center;
-    margin-bottom: 70px;
-}
-
-.avatar-wrapper {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    margin: 0 auto 25px;
-}
-
-.avatar-img {
+/* Сканлайны ЭЛТ-монитора */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    position: relative;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+    background-size: 100% 4px;
     z-index: 2;
-    border: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-.avatar-glow {
-    position: absolute;
-    top: -5px; left: -5px; right: -5px; bottom: -5px;
-    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
-    border-radius: 50%;
-    filter: blur(14px);
+    pointer-events: none;
     opacity: 0.8;
-    animation: spinGlow 6s linear infinite;
 }
 
-@keyframes spinGlow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-}
-
-.status-dot {
-    width: 7px;
-    height: 7px;
-    background-color: #00ff88;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #00ff88;
-    animation: blink 2s infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
-h1.glitch-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    margin-bottom: 8px;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.accent-dot {
-    color: var(--neon-pink);
-    text-shadow: 0 0 15px var(--neon-pink);
-}
-
-.subtitle {
-    color: var(--text-dim);
-    font-size: 1.1rem;
-    margin-bottom: 35px;
-}
-
-/* 2026 Кибер-кнопки */
-.social-links {
+/* Верхняя панель HUD */
+.hud-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
 }
+
+.logo {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+    .logo .blink {
+        color: #00ff66;
+        animation: pulse 1s infinite;
+    }
+
+.stats-counter {
+    font-size: 0.9rem;
+    color: #8899aa;
+    background: rgba(10, 15, 25, 0.7);
+    padding: 6px 14px;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: 4px;
+    backdrop-filter: blur(5px);
+}
+
+/* Подсказка управления */
+.hud-instructions {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+    font-size: 0.8rem;
+    color: rgba(166, 249, 255, 0.5);
+    letter-spacing: 1px;
+    background: rgba(3, 3, 8, 0.6);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 240, 255, 0.15);
+}
+
+/* Всплывающее окно репозитория */
+.repo-card {
+    position: absolute;
+    bottom: 60px;
+    right: 25px;
+    width: 320px;
+    background: rgba(8, 12, 22, 0.85);
+    border: 1px solid #00f0ff;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+    border-radius: 6px;
+    padding: 20px;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+    .repo-card.hidden {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        pointer-events: none;
+    }
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #00f0ff;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.repo-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: rgba(0, 240, 255, 0.15);
+    color: #00f0ff;
+    margin-bottom: 8px;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
+.repo-card h2 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 8px;
+    word-break: break-all;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.repo-card p {
+    font-size: 0.85rem;
+    color: #9cb3c9;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.repo-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: #7b94a8;
+    margin-bottom: 15px;
+}
+
+    .repo-metrics b {
+        color: #fff;
+    }
 
 .cyber-btn {
-    position: relative;
-    padding: 14px 28px;
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--text-white);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
-}
-
-.cyber-btn:hover {
-    border-color: var(--neon-cyan);
-    box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
-    transform: translateY(-3px) scale(1.02);
-    color: var(--neon-cyan);
-}
-
-.cyber-btn.primary {
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
-    border: none;
-}
-
-.cyber-btn.primary:hover {
-    box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
-    color: white;
-}
-
-/* Секции и карточки */
-.section {
-    margin-bottom: 60px;
-}
-
-.section-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    color: var(--neon-cyan);
-    letter-spacing: 2px;
-    margin-bottom: 25px;
-}
-
-.tech-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tech-chip {
-    padding: 8px 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.25s ease;
-}
-
-.tech-chip:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    border-color: var(--neon-purple);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(157, 0, 255, 0.2);
-}
-
-.chip-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--neon-cyan);
-}
-
-/* Карточки проектов с 3D перспективой */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-    perspective: 1000px;
-}
-
-.card {
-    position: relative;
-    background: var(--card-surface);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 14px;
-    padding: 30px;
-    transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
-    transform-style: preserve-3d;
-}
-
-.card:hover {
-    border-color: rgba(0, 243, 255, 0.4);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 243, 255, 0.15);
-}
-
-.card-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--neon-pink);
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-}
-
-.card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-}
-
-.card p {
-    color: var(--text-dim);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 25px;
-}
-
-.card-link {
-    color: var(--neon-cyan);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    transition: letter-spacing 0.2s ease;
-}
-
-.card-link:hover {
-    letter-spacing: 1px;
-}
-
-.footer {
+    display: block;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 40px;
-    color: #4b4d5a;
-    font-size: 0.75rem;
-    font-family: 'JetBrains Mono', monospace;
+    text-decoration: none;
+    background: rgba(0, 240, 255, 0.1);
+    color: #00f0ff;
+    border: 1px solid #00f0ff;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+    .cyber-btn:hover {
+        background: #00f0ff;
+        color: #030308;
+        box-shadow: 0 0 20px #00f0ff;
+    }
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
 }
