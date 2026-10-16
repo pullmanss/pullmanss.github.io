@@ -3,50 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pullmanss // 3D GitHub Galaxy</title>
+    <title>pullmanss // Dev Terminal & Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Эффект сканлайнов монитора -->
+    <!-- Эффект интерактивных частиц на Canvas -->
+    <canvas id="bg-canvas"></canvas>
     <div class="scanlines"></div>
 
-    <!-- 3D Canvas -->
-    <div id="canvas-container"></div>
+    <main class="terminal-container">
+        <!-- Шапка профиля -->
+        <header class="cyber-header">
+            <div class="profile-info">
+                <div class="avatar-box">
+                    <img id="avatar" src="https://github.com/pullmanss.png" alt="Avatar">
+                    <div class="status-indicator"></div>
+                </div>
+                <div>
+                    <h1 class="glitch-text" id="user-name">pullmanss</h1>
+                    <p class="role-badge">// SMART CONTRACTS & WEB3 SECURITY</p>
+                    <div class="live-clock" id="clock">00:00:00 UTC</div>
+                </div>
+            </div>
 
-    <!-- Кибер-интерфейс (HUD) -->
-    <div class="hud-header">
-        <div class="logo">
-            <span class="blink">●</span> SYSTEM: ONLINE // USER: <span id="username-display">pullmanss</span>
-        </div>
-        <div class="stats-counter" id="stats-counter">SCANNING GALAXY...</div>
-    </div>
+            <div class="stats-hub">
+                <div class="stat-card">
+                    <span class="stat-label">REPOS</span>
+                    <span class="stat-value" id="repo-count">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">FOLLOWERS</span>
+                    <span class="stat-value" id="followers-count">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">SYSTEM</span>
+                    <span class="stat-value text-green">ONLINE</span>
+                </div>
+            </div>
+        </header>
 
-    <div class="hud-instructions">
-        [ ЛКМ + Перетаскивание ] Вращение &nbsp;|&nbsp; [ Колесо мыши ] Зум &nbsp;|&nbsp; [ Клик на звезду ] Инфо
-    </div>
+        <!-- Панель поиска и фильтрации -->
+        <section class="controls-panel">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="Поиск репозитория или технологии (например: Solidity)...">
+            </div>
+            <div class="quick-links">
+                <a href="https://github.com/pullmanss" target="_blank" class="cyber-btn">GITHUB PROFILE ↗</a>
+            </div>
+        </section>
 
-    <!-- Всплывающая карточка репозитория -->
-    <div id="repo-card" class="repo-card hidden">
-        <button class="close-btn" id="close-card">×</button>
-        <div class="repo-badge" id="card-lang">UNKNOWN</div>
-        <h2 id="card-title">REPOSITORY_NAME</h2>
-        <p id="card-desc">No description provided.</p>
-        <div class="repo-metrics">
-            <span>★ Звёзды: <b id="card-stars">0</b></span>
-            <span>⑂ Форки: <b id="card-forks">0</b></span>
-            <span>⚡ Обновлён: <b id="card-date">-</b></span>
-        </div>
-        <a id="card-link" href="#" target="_blank" rel="noopener noreferrer" class="cyber-btn">
-            OPEN IN GITHUB →
-        </a>
-    </div>
+        <!-- Сетка проектов (наполняется через script.js) -->
+        <section class="projects-grid" id="projects-container">
+            <div class="loading-state">ЗАГРУЗКА РЕПОЗИТОРИЕВ ИЗ GITHUB API...</div>
+        </section>
+    </main>
 
-    <!-- Библиотеки Three.js и OrbitControls через CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

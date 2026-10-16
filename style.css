@@ -1,194 +1,295 @@
+:root {
+    --bg-color: #060913;
+    --panel-bg: rgba(13, 19, 36, 0.75);
+    --border-color: rgba(0, 240, 255, 0.25);
+    --cyan: #00f0ff;
+    --purple: #b537f2;
+    --green: #00ff88;
+    --text-main: #d8e5f2;
+    --text-dim: #768da6;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Share Tech Mono', monospace;
-    user-select: none;
 }
 
-body, html {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #030308;
-    color: #a6f9ff;
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Fira Code', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
 }
 
-#canvas-container {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
+/* Фон на Canvas */
+#bg-canvas {
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
 }
 
-/* Сканлайны ЭЛТ-монитора */
+/* Сканлайн-эффект монитора */
 .scanlines {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
     background-size: 100% 4px;
-    z-index: 2;
+    z-index: 1;
     pointer-events: none;
-    opacity: 0.8;
 }
 
-/* Верхняя панель HUD */
-.hud-header {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
+/* Основной контейнер */
+.terminal-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Шапка */
+.cyber-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
-    pointer-events: none;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+    flex-wrap: wrap;
+    gap: 20px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.08);
 }
 
-.logo {
-    font-size: 1.1rem;
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar-box {
+    position: relative;
+    width: 74px;
+    height: 74px;
+}
+
+    .avatar-box img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        border: 2px solid var(--cyan);
+        object-fit: cover;
+    }
+
+.status-indicator {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 14px;
+    height: 14px;
+    background: var(--green);
+    border: 2px solid var(--bg-color);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green);
+}
+
+.glitch-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.2rem;
     letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
 }
 
-    .logo .blink {
-        color: #00ff66;
-        animation: pulse 1s infinite;
-    }
-
-.stats-counter {
-    font-size: 0.9rem;
-    color: #8899aa;
-    background: rgba(10, 15, 25, 0.7);
-    padding: 6px 14px;
-    border: 1px solid rgba(0, 240, 255, 0.3);
-    border-radius: 4px;
-    backdrop-filter: blur(5px);
-}
-
-/* Подсказка управления */
-.hud-instructions {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    pointer-events: none;
+.role-badge {
     font-size: 0.8rem;
-    color: rgba(166, 249, 255, 0.5);
+    color: var(--cyan);
     letter-spacing: 1px;
-    background: rgba(3, 3, 8, 0.6);
-    padding: 5px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(0, 240, 255, 0.15);
 }
 
-/* Всплывающее окно репозитория */
-.repo-card {
-    position: absolute;
-    bottom: 60px;
-    right: 25px;
-    width: 320px;
-    background: rgba(8, 12, 22, 0.85);
-    border: 1px solid #00f0ff;
-    box-shadow: 0 0 25px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+.live-clock {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+}
+
+/* Статистика */
+.stats-hub {
+    display: flex;
+    gap: 15px;
+}
+
+.stat-card {
+    background: rgba(6, 9, 19, 0.6);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    padding: 10px 18px;
     border-radius: 6px;
-    padding: 20px;
-    z-index: 20;
-    backdrop-filter: blur(8px);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    min-width: 90px;
 }
 
-    .repo-card.hidden {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-        pointer-events: none;
-    }
+.stat-label {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+}
 
-.close-btn {
-    position: absolute;
-    top: 8px;
-    right: 12px;
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.text-green {
+    color: var(--green);
+}
+
+/* Панель поиска */
+.controls-panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    align-items: center;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.search-icon {
+    margin-right: 10px;
+    opacity: 0.6;
+}
+
+.search-box input {
+    width: 100%;
     background: transparent;
     border: none;
-    color: #00f0ff;
-    font-size: 1.4rem;
-    cursor: pointer;
-}
-
-.repo-badge {
-    display: inline-block;
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    border-radius: 3px;
-    background: rgba(0, 240, 255, 0.15);
-    color: #00f0ff;
-    margin-bottom: 8px;
-    border: 1px solid rgba(0, 240, 255, 0.4);
-}
-
-.repo-card h2 {
-    font-size: 1.2rem;
+    outline: none;
     color: #fff;
-    margin-bottom: 8px;
-    word-break: break-all;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    font-family: inherit;
+    padding: 14px 0;
+    font-size: 0.9rem;
 }
-
-.repo-card p {
-    font-size: 0.85rem;
-    color: #9cb3c9;
-    margin-bottom: 15px;
-    line-height: 1.3;
-    max-height: 80px;
-    overflow-y: auto;
-}
-
-.repo-metrics {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-size: 0.8rem;
-    color: #7b94a8;
-    margin-bottom: 15px;
-}
-
-    .repo-metrics b {
-        color: #fff;
-    }
 
 .cyber-btn {
-    display: block;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
     background: rgba(0, 240, 255, 0.1);
-    color: #00f0ff;
-    border: 1px solid #00f0ff;
-    padding: 8px 12px;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    padding: 12px 20px;
+    border-radius: 6px;
     font-size: 0.85rem;
-    letter-spacing: 1px;
-    font-weight: bold;
+    font-weight: 600;
     transition: all 0.2s ease;
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
 }
 
     .cyber-btn:hover {
-        background: #00f0ff;
-        color: #030308;
-        box-shadow: 0 0 20px #00f0ff;
+        background: var(--cyan);
+        color: var(--bg-color);
+        box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
     }
 
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
+/* Сетка карточек репозиториев */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.repo-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    backdrop-filter: blur(8px);
+}
+
+    .repo-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--cyan);
+        box-shadow: 0 8px 25px rgba(0, 240, 255, 0.15);
     }
 
-    50% {
-        opacity: 0.2;
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.repo-name {
+    font-size: 1.15rem;
+    color: #fff;
+    word-break: break-all;
+}
+
+.repo-lang {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    color: var(--cyan);
+}
+
+.repo-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 14px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+    .card-bottom a {
+        color: var(--cyan);
+        text-decoration: none;
+        font-weight: 600;
     }
+
+        .card-bottom a:hover {
+            text-decoration: underline;
+        }
+
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--cyan);
+    letter-spacing: 2px;
 }
